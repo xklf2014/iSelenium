@@ -30,13 +30,15 @@ public abstract class WebUIBase {
     @Before
     public void begin() {
         //加载配置文件，注意需要事先将配置文件放到user.home下
-        logger.info("Load properties file:" + propFileName);
-        Properties prop = loadFromEnvProperties(propFileName);
+        //logger.info("Load properties file:" + propFileName);
+        //Properties prop = loadFromEnvProperties(propFileName);
 
         //获取浏览器driver路径
         logger.info("Load webdriver path");
-        firefoxPath = prop.getProperty("FIREFOX_PATH");
-        chromePath = prop.getProperty("CHROME_PATH");
+        //firefoxPath = prop.getProperty("FIREFOX_PATH");
+        firefoxPath = "/Users/linfeng/workspace/ci/iSelenium/src/test/resources/geckodriver";
+        //chromePath = prop.getProperty("CHROME_PATH");
+        chromePath = "/Users/linfeng/workspace/ci/iSelenium/src/test/resources/chromedriver";
         logger.info("firefoxPath = " + firefoxPath);
         logger.info("chromePath = " + chromePath);
 
@@ -47,8 +49,8 @@ public abstract class WebUIBase {
 
         //构造webdriver
         if (curBrowser.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.firefox.bin", firefoxPath);
-            System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+            System.setProperty("webdriver.gecko.driver", firefoxPath);
+            //System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
             driver = new FirefoxDriver();
         } else if (curBrowser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", chromePath);
@@ -59,8 +61,8 @@ public abstract class WebUIBase {
             chromeOptions.addArguments("--headless");
             driver = new ChromeDriver(chromeOptions);
         } else {
-            System.setProperty("webdriver.firefox.bin", firefoxPath);
-            System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
+            System.setProperty("webdriver.gecko.driver", firefoxPath);
+            //System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl");
             driver = new FirefoxDriver();
         }
 
